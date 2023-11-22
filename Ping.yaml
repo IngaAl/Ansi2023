@@ -1,0 +1,22 @@
+---
+- name: Ping IPs from CSV
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Read CSV file
+      read_csv:
+        path: ip_list.csv
+      register: csv_data
+
+    - name: Ping IPs
+      ansible.builtin.ping:
+        count: 2
+      with_items: "{{ csv_data.list }}"
+      loop_control:
+        loop_var: item
+      ignore_errors: yes
+      register: ping_result
+
+    - name: Display ping results
+      debug:
+        var: ping_result.results
