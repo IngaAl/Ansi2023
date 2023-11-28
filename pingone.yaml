@@ -7,6 +7,6 @@
   tasks:
 
     - name: ping
-      shell: ping -c 1 -w 2 192.168.85.42
+      shell: ping -c 1 -w 2 192.168.65.42
       ignore_errors: true
     
