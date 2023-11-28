@@ -4,17 +4,17 @@
   gather_facts: False
   connection: local
   vars:
-    target_ips: []
+    target_ip: []
 
 
   tasks:
     - name: Display IP address
       debug:
         msg: "Pinging IP address: {{ item }}"
-      with_items: "{{ target_ips }}"
+      with_items: "{{ target_ip }}"
 
     - name: ping
       shell: ping -c 1 -w 2 {{ item }}
-      with_items: "{{ target_ips }}"
+      with_items: "{{ target_ip }}"
       
     
