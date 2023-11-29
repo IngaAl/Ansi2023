@@ -10,7 +10,7 @@
     
     - name: Convert comma-separated string to list
       set_fact:
-        target_ip_list: "{{ target_ips_input.split(',') }}"
+        target_ip_list: "{{ target_ips_input | split(',') }}"   
     
     - name: Display IP addresses
       debug:
