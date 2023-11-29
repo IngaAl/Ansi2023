@@ -3,18 +3,14 @@
 - hosts: all
   gather_facts: False
   connection: local
-  vars:
-    target_ip: []
-
 
   tasks:
     - name: Display IP address
       debug:
-        msg: "Pinging IP address: {{ item }}"
-      with_items: "{{ target_ip }}"
-
+        msg: "Pinging IP address: {{ target_ip }}"
+     
     - name: ping
-      shell: ping -c 1 -w 2 {{ item }}
-      with_items: "{{ target_ip }}"
+      shell: ping -c 1 -w 2 {{ target_ip }}
+      
       
     
