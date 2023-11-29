@@ -3,14 +3,21 @@
 - hosts: all
   gather_facts: False
   connection: local
+  vars:
+    target_ips: "{{ target_ips_input | default('') }}"
 
   tasks:
-    - name: Display IP address
-      debug:
-        msg: "Pinging IP address: {{ target_ip }}"
-     
-    - name: ping
-      shell: ping -c 1 -w 2 {{ target_ip }}
-      
-      
     
+    - name: Convert comma-separated string to list
+      set_fact:
+        target_ip_list: "{{ target_ips_input.split(',') }}"
+    
+    - name: Display IP addresses
+      debug:
+        msg: "Pinging each IP address: {{ item }}"
+      with_items: "{{ target_ips }}"
+
+    - name: ping
+      shell: ping -c 1 -w 2 {{ item }}
+      with_items: "{{ target_ips }}"
+      ignore_errors: true
