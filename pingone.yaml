@@ -4,20 +4,21 @@
   gather_facts: False
   connection: local
   vars:
-    target_ips: "{{ target_ips_input | default('') }}"
+    targetips: "{{ targetipsinput | default('') }}"
 
   tasks:
     
     - name: Convert comma-separated string to list
       set_fact:
-        target_ip_list: "{{ target_ips_input | split(',') }}"   
+        targetiplist: "{{ targetipsinput.split(',') }}"    
+        
     
     - name: Display IP addresses
       debug:
         msg: "Pinging each IP address: {{ item }}"
-      with_items: "{{ target_ips }}"
+      with_items: "{{ targetiplist }}"
 
     - name: ping
       shell: ping -c 1 -w 2 {{ item }}
-      with_items: "{{ target_ips }}"
+      with_items: "{{ targetips }}"
       ignore_errors: true
