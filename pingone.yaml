@@ -20,5 +20,5 @@
 
     - name: ping
       shell: ping -c 1 -w 2 {{ item }}
-      with_items: "{{ targetips }}"
+      with_items: "{{ targetiplist }}"
       ignore_errors: true
